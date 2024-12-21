@@ -1,0 +1,39 @@
+type CheckBox {
+    amenityName: String!
+    hasAmenity: Boolean!
+}
+
+input CheckBoxInput {
+    amenityName: String!
+    hasAmenity: Boolean!
+}
+
+type Amenity {
+    title: String!
+    checkboxes: [CheckBox!]!
+}
+
+input AmenityInput {
+    title: String!
+    checkboxes: [CheckBoxInput!]!
+}
+
+type Property {
+    propertyId: String!
+    amenities: [Amenity!]!
+}
+
+input PropertyInput {
+    id: String!
+}
+
+type Query {
+    getFilteredPropertiesByIds(propertyIds: [PropertyInput!]!): [Property]
+    getPropertyById(propertyId: String!): Property
+}
+
+type Mutation {
+    insertAmenity(propertyId: String!, amenities: [AmenityInput!]!): Property
+    updateAmenity(propertyId: String!, amenities: [AmenityInput!]!): Property
+    deleteAmenity(propertyId: String!): Boolean
+}
