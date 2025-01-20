@@ -25,7 +25,7 @@ app.add_middleware(
 )
 
 # Add GraphQL endpoint
-app.add_route("/graphql", GraphQL(schema, debug=True))
+app.add_route("/graphql", GraphQL(schema, debug=False))
 
 # MongoDB connection check (optional)
 @app.on_event("startup")
