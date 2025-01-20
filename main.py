@@ -19,7 +19,9 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     # allow_origins=["*"],  # Replace "*" with specific origins for production
-    allow_origins=["http://localhost:53197/"],
+    allow_origins=[
+        "http://localhost:53197/",
+        "https://proud-ocean-0d37fea00.4.azurestaticapps.net/"],
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
