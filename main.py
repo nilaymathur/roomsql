@@ -18,13 +18,15 @@ app = FastAPI()
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    # allow_origins=["*"],  # Replace "*" with specific origins for production
     allow_origins=[
-        "http://localhost:53197/",
-        "https://proud-ocean-0d37fea00.4.azurestaticapps.net/"],
+        "http://localhost:53197",
+        "https://proud-ocean-0d37fea00.4.azurestaticapps.net",
+    ],
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods
-    allow_headers=["*"],  # Allow all headers
+    # allow_methods=["*"],  # Allow all HTTP methods
+    allow_methods=["GET", "POST", "OPTIONS"],
+    # allow_headers=["*"],  # Allow all headers
+    allow_headers=["Authorization", "Content-Type", "Custom-Header"],
 )
 
 # Add GraphQL endpoint
