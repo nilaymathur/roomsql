@@ -15,6 +15,7 @@ schema = make_executable_schema(type_defs, query, mutation)
 # Initialize FastAPI app
 app = FastAPI()
 
+
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
@@ -28,6 +29,10 @@ app.add_middleware(
     # allow_headers=["*"],  # Allow all headers
     allow_headers=["Authorization", "Content-Type", "Custom-Header"],
 )
+
+@app.get("/")
+def read_root():
+    return {"Property": "Amenities"}
 
 # Add GraphQL endpoint
 app.add_route("/graphql", GraphQL(schema, debug=False))
