@@ -19,23 +19,22 @@ app = FastAPI()
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:53197",
-        "https://proud-ocean-0d37fea00.4.azurestaticapps.net",
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
-    # allow_methods=["*"],  # Allow all HTTP methods
-    allow_methods=["GET", "POST", "OPTIONS"],
-    # allow_headers=["*"],  # Allow all headers
-    allow_headers=["Authorization", "Content-Type", "Custom-Header"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 @app.get("/")
 def read_root():
     return {"Property": "Amenities"}
 
+@app.get("/routes")
+def get_routes():
+    return [{"path": route.path, "name": route.name} for route in app.router.routes]
+
 # Add GraphQL endpoint
-app.add_route("/graphql", GraphQL(schema, debug=False))
+app.add_route("/graphql", GraphQL(schema, debug=True))
 
 # MongoDB connection check (optional)
 @app.on_event("startup")
