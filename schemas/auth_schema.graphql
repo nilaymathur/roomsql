@@ -1,0 +1,37 @@
+type User {
+    aadhar_no   : String!
+    active      : Boolean
+    email       : String
+    mobile      : String!
+    password    : String!
+    profile_uri : String
+    role        : String!
+}
+
+type Query {
+    getUser(aadhar_no: String!): [User]
+}
+
+type Mutation {
+    createUser(
+        aadhar_no   : String!,
+        active      : Boolean!,
+        email       : String!,
+        mobile      : String!,
+        password    : String!,
+        profile_uri : String!,
+        role        : String!
+    ): Boolean
+
+    updateUser(
+        active      :  Boolean!,
+        email       :  String!,
+        mobile      :  String!,
+        password    :  String!,
+        profile_uri :  String!,
+    ): Boolean
+
+    deleteUser(mobile: String!): Boolean
+
+    login(mobile: String!, password: String!): Boolean!
+}

@@ -3,13 +3,13 @@ from bson import ObjectId
 from config.database import get_db
 
 # Initialize mutation type
-mutation = MutationType()
+amenity_mutation = MutationType()
 
 # Database connection
 db = get_db()
 students_collection = db["Amenities"]
 
-@mutation.field("insertAmenity")
+@amenity_mutation.field("insertAmenity")
 def resolve_create_amenity(_, info, propertyId, amenities):
     try:
         # Validate input
@@ -50,7 +50,7 @@ def resolve_create_amenity(_, info, propertyId, amenities):
 
 
 # Resolver for updateAmenity
-@mutation.field("updateAmenity")
+@amenity_mutation.field("updateAmenity")
 def resolve_update_amenity(_, info, propertyId, amenities):
     try:
         if not amenities:
@@ -91,7 +91,7 @@ def resolve_update_amenity(_, info, propertyId, amenities):
 
 
 # Resolver for deleteAmenity
-@mutation.field("deleteAmenity")
+@amenity_mutation.field("deleteAmenity")
 def resolve_delete_amenity(_, info, propertyId):
     try:
         # Delete all amenities under a given propertyId
