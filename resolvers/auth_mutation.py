@@ -10,12 +10,13 @@ db = get_db()
 users_collection = db["Users"]
 
 @auth_mutation.field("createUser")
-def resolve_create_user(_, info, aadhar_no, active, email, mobile, password, profile_uri, role):
+def resolve_create_user(_, info, aadhar_no, active, email, mobile, name, password, profile_uri, role):
     new_user = {
+        "_id": mobile,
         "aadhar_no": aadhar_no,
         "active": active,
         "email": email,
-        "_id": mobile,
+        "name": name,
         "password": password,
         "profile_uri": profile_uri,
         "role": role
@@ -36,16 +37,16 @@ def resolve_update_user(_, info, active, email, mobile, password, profile_uri):
     )
     return update_result.modified_count > 0
 
-@auth_mutation.field("login")
-def resolve_login(_, info, mobile, password):
-    user = users_collection.find_one({"_id": mobile})
+# @auth_mutation.field("login")
+# def resolve_login(_, info, mobile, password):
+#     user = users_collection.find_one({"_id": mobile})
 
-    if not user:
-        return False
+#     if not user:
+#         return False
     
-    if user['password'] == password:
-        return True
-    return False
+#     if user['password'] == password:
+#         return True
+#     return False
 
 @auth_mutation.field("deleteUser")
 def resolve_delete_user(_, info, mobile):
