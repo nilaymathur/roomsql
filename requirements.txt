@@ -2,3 +2,4 @@ fastapi
 ariadne
 pymongo
 uvicorn
+certifi
