@@ -30,7 +30,7 @@ def resolve_get_user(_, info, aadhar_no):
 @auth_query.field("login")
 def resolve_login(_, info, mobile, password):
     user = users_collection.find_one({"_id": mobile, "password": password})
-
+    print(user);
     if user:
         return {
             "aadhar_no": user.get("aadhar_no", ""),

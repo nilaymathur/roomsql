@@ -1,0 +1,15 @@
+scalar Upload
+
+type ImageResponse {
+  success: Boolean!
+  message: String!
+  url: String
+}
+
+type Mutation {
+  uploadImage(file: Upload!, imageName: String!, containerName: String!): ImageResponse!
+}
+
+type Query {
+  getImages(containerName: String!): [String]!
+}
