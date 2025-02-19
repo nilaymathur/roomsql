@@ -1,7 +1,6 @@
 # Ignore environment variable files
 .env
 env
-myenv
 
 **/__pycache__/
 __pycache__/
