@@ -1,3 +1,8 @@
+type PropertyCount {
+    count: Int!
+    is_active: Int!
+}
+
 type Address {
     city: String
     state: String
@@ -87,6 +92,7 @@ type Query {
     getPropertyById(propertyId: ID!): Property
     getAllProperties: [Property!]!
     getPropByLT(type: String!, city: String!, state: String!, country: String!): [Property!]!
+    getPropertyCount(owner_id: String!): PropertyCount!
 }
 
 type Mutation {

@@ -53,3 +53,19 @@ def resolve_get_all_properties(_, info):
     except Exception as e:
         print(f"Error fetching all properties: {e}")
         return []
+
+@property_query.field("getPropertyCount")
+def resolve_get_property_count(_, info, owner_id):
+    try:
+        total_count = property_collection.count_documents({"owner_id": owner_id})
+        active_count = property_collection.count_documents({"owner_id": owner_id, "is_active": True})
+        return {
+             "count": total_count,
+            "is_active": active_count
+        }
+    except Exception as e:
+        print(f"Error fetching property by id: {e}")
+        return {
+            "count": 0,
+            "is_active": 0
+        }
