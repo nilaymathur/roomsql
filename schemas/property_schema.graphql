@@ -93,6 +93,7 @@ type Query {
     getAllProperties: [Property!]!
     getPropByLT(type: String!, city: String!, state: String!, country: String!): [Property!]!
     getPropertyCount(owner_id: String!): PropertyCount!
+    getMyProperties(owner_id: String!):[Property!]!
 }
 
 type Mutation {

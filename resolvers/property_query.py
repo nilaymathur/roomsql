@@ -69,3 +69,21 @@ def resolve_get_property_count(_, info, owner_id):
             "count": 0,
             "is_active": 0
         }
+
+@property_query.field("getMyProperties")
+def resolve_get_prop_by_lt(_, info, owner_id):
+    try:
+        # Query MongoDB with given filters
+        filtered_properties = list(property_collection.find({
+            "owner_id": owner_id
+        }))
+
+        # Convert MongoDB ObjectId to string and rename `_id` to `propertyId`
+        for property in filtered_properties:
+            property["propertyId"] = str(property["_id"])
+            del property["_id"]
+
+        return filtered_properties
+    except Exception as e:
+        print(f"Error fetching your properties: {e}")
+        return []
