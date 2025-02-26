@@ -71,7 +71,7 @@ def resolve_get_property_count(_, info, owner_id):
         }
 
 @property_query.field("getMyProperties")
-def resolve_get_prop_by_lt(_, info, owner_id):
+def resolve_get_my_properties(_, info, owner_id):
     try:
         # Query MongoDB with given filters
         filtered_properties = list(property_collection.find({

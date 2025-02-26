@@ -9,20 +9,20 @@ amenity_query = QueryType()
 db = get_db()
 amenities_collection = db["Amenities"]
 
-@amenity_query.field("getPropertyById")
-def resolve_get_property_by_propertyId(_, info, propertyId):
+@amenity_query.field("getAmenityById")
+def resolve_get_amenity_by_propertyId(_, info, propertyId):
     try:
         # Query MongoDB
-        property = amenities_collection.find_one({"propertyId": propertyId})
+        amenity = amenities_collection.find_one({"propertyId": propertyId})
 
         # Handle response if property exists
-        if property:
+        if amenity:
             # Convert the ObjectId to a string for GraphQL compatibility
-            property["_id"] = str(property["_id"])
-            return property
+            amenity["_id"] = str(amenity["_id"])
+            return amenity
         else:
-            # Return an empty response if no property is found
+            # Return an empty response if no amenity is found
             return None
     except Exception as e:
-        print(f"Error fetching property by id: {e}")
+        print(f"Error fetching amenity by id: {e}")
         return None

@@ -29,7 +29,7 @@ input PropertyInput {
 
 type Query {
     getFilteredPropertiesByIds(propertyIds: [PropertyInput!]!): [Property]
-    getPropertyById(propertyId: String!): Property
+    getAmenityById(propertyId: String!): Property
 }
 
 type Mutation {
