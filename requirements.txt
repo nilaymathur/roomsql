@@ -3,4 +3,5 @@ ariadne
 pymongo
 uvicorn
 gunicorn
+python-multipart
 azure-storage-blob
