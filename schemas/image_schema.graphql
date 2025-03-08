@@ -8,6 +8,7 @@ type ImageResponse {
 
 type Mutation {
   uploadImage(file: Upload!, imageName: String!, containerName: String!): ImageResponse!
+  deleteImage(imageName: String!, containerName: String!): ImageResponse!
 }
 
 type Query {

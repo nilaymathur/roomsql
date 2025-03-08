@@ -37,16 +37,15 @@ def resolve_update_user(_, info, active, email, mobile, password, profile_uri):
     )
     return update_result.modified_count > 0
 
-# @auth_mutation.field("login")
-# def resolve_login(_, info, mobile, password):
-#     user = users_collection.find_one({"_id": mobile})
-
-#     if not user:
-#         return False
-    
-#     if user['password'] == password:
-#         return True
-#     return False
+# @auth_mutation.field("updateProfile")
+# def resolve_update_user(_, info, mobile, profile_uri):
+#     update_result = users_collection.update_one(
+#         {"_id": mobile},
+#         {"$set": {
+#             "profile_uri": profile_uri,
+#         }}
+#     )
+#     return update_result.modified_count > 0
 
 @auth_mutation.field("deleteUser")
 def resolve_delete_user(_, info, mobile):

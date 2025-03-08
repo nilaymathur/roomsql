@@ -37,3 +37,34 @@ async def resolve_upload_image(_, info, file, imageName, containerName):
             "message": f"Upload failed: {str(e)}",
             "url": None
         }
+    
+@image_mutation.field("deleteImage")
+def resolve_delete_image(_, info, imageName, containerName):
+    try:
+        # Initialize Blob Service Client
+        blob_service_client = BlobServiceClient.from_connection_string(BLOB_CONNECTION_STRING)
+        container_client = blob_service_client.get_container_client(containerName)
+
+        # Get blob client for the image
+        blob_client = container_client.get_blob_client(imageName)
+
+        # Check if blob exists
+        if not blob_client.exists():
+            return {
+                "success": False,
+                "message": "Image not found!"
+            }
+
+        # Delete the blob
+        blob_client.delete_blob()
+
+        return {
+            "success": True,
+            "message": "Image deleted successfully!"
+        }
+
+    except Exception as e:
+        return {
+            "success": False,
+            "message": f"Deletion failed: {str(e)}"
+        }
