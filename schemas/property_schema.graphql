@@ -100,4 +100,5 @@ type Mutation {
     insertProperty(property: PropertyInput!): Property
     updateProperty(propertyId: ID!, property: PropertyInput!): Property
     deleteProperty(propertyId: ID!): Boolean
+    updateHasAmenities(propertyId: ID!, has_amenities: Boolean!): Property
 }

@@ -38,6 +38,24 @@ def resolve_update_property(_, info, propertyId, property):
         print(f"Error updating property: {e}")
         return None
 
+@property_mutation.field("updateHasAmenities")
+def resolve_update_property_amenities(_, info, propertyId, has_amenities):
+    try:
+        update_result = property_collection.update_one(
+            {"_id": ObjectId(propertyId)},
+            {"$set": {"has_amenities": has_amenities}}
+        )
+
+        if update_result.modified_count == 1:
+            updated_property = property_collection.find_one({"_id": ObjectId(propertyId)})
+            updated_property["propertyId"] = str(updated_property["_id"])
+            del updated_property["_id"]
+            return updated_property
+        return None
+    except Exception as e:
+        print(f"Error updating has_amenities: {e}")
+        return None
+
 @property_mutation.field("deleteProperty")
 def resolve_delete_property(_, info, propertyId):
     try:
