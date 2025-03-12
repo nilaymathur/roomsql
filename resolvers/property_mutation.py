@@ -56,7 +56,7 @@ def resolve_update_property_amenities(_, info, propertyId, has_amenities):
         print(f"Error updating has_amenities: {e}")
         return None
 
-@property_mutation.field("isActive")
+@property_mutation.field("updateIsActive")
 def resolve_is_active(_, info, propertyId, is_active):
     try:
         update_result = property_collection.update_one(
