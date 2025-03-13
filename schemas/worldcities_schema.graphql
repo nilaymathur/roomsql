@@ -1,0 +1,35 @@
+type WorldCity {
+    id: ID!
+    city: String!
+    city_ascii: String
+    lat: Float!
+    lng: Float!
+    country: String!
+    iso2: String
+    iso3: String
+    state: String!
+    registeredOn: String
+}
+
+input WorldCityInput {
+    city: String!
+    city_ascii: String
+    lat: Float!
+    lng: Float!
+    country: String!
+    iso2: String
+    iso3: String
+    state: String!
+    registeredOn: String
+}
+
+type Query {
+    getCityByFilters(country: String!, state: String!, city: String!): [WorldCity!]!
+    getCountries: [String]
+    getStates(country: String!): [String]
+    getCities(country: String!, state: String!): [String]
+}
+
+type Mutation {
+    insertWorldCity(cityData: WorldCityInput!): WorldCity
+}

@@ -101,4 +101,5 @@ type Mutation {
     updateProperty(propertyId: ID!, property: PropertyInput!): Property
     deleteProperty(propertyId: ID!): Boolean
     updateHasAmenities(propertyId: ID!, has_amenities: Boolean!): Property
+    updateIsActive(propertyId: ID!, is_active: Boolean!): Property
 }
