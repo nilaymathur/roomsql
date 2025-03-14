@@ -46,7 +46,7 @@ def resolve_get_states(_, info, country):
 @worldcity_query.field("getCities")
 def resolve_get_cities(_, info, country, state):
     try:
-        cities = worldcities_collection.distinct("city", {"country": country, "state": state})
+        cities = worldcities_collection.distinct("city_ascii", {"country": country, "state": state})
         return cities
     except Exception as e:
         print(f"Error fetching cities: {e}")
