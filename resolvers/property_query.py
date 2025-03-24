@@ -30,7 +30,8 @@ def resolve_get_prop_by_lt(_, info, type, city, state, country):
             "type": { "$regex": f"^{type}$", "$options": "i" },
             "address.city": { "$regex": f"^{city}$", "$options": "i" },
             "address.state": { "$regex": f"^{state}$", "$options": "i" },
-            "address.country": { "$regex": f"^{country}$", "$options": "i" }
+            "address.country": { "$regex": f"^{country}$", "$options": "i" },
+            "is_active": True
         }))
 
         print(filtered_properties)
