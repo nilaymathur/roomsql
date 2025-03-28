@@ -57,6 +57,9 @@ type Property {
     market_distance: Float
     rent: Float
     type: String!
+    bhk: Int
+    max_share: Int
+    room_size: Float
     description: String
     area: String
     is_active: Boolean!
@@ -78,6 +81,9 @@ input PropertyInput {
     market_distance: Float
     rent: Float
     type: String!
+    bhk: Int
+    max_share: Int
+    room_size: Float
     description: String
     area: String
     is_active: Boolean = true
