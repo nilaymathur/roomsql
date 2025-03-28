@@ -59,7 +59,7 @@ type Property {
     type: String!
     bhk: Int
     max_share: Int
-    room_size: Float
+    floor_size: Float
     description: String
     area: String
     is_active: Boolean!
@@ -83,7 +83,7 @@ input PropertyInput {
     type: String!
     bhk: Int
     max_share: Int
-    room_size: Float
+    floor_size: Float
     description: String
     area: String
     is_active: Boolean = true
