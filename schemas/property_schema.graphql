@@ -70,6 +70,11 @@ type Property {
     image_urls: [ImageURL!]!
 }
 
+type ImageProperty {
+  propertyId: ID!
+  image_urls: [ImageURL!]!
+}
+
 input PropertyInput {
     property_count: Int!
     property_name: String!
@@ -94,18 +99,29 @@ input PropertyInput {
     image_urls: [ImageURLInput!]!
 }
 
+input PropertyEditInput {
+    property_name: String
+    market_distance: Float
+    rent: Float
+    type: String
+    description: String
+    is_available: Boolean
+    image_urls: [ImageURLInput!]
+}
+
 type Query {
-    getPropertyById(propertyId: ID!): Property
     getAllProperties: [Property!]!
-    getPropByLT(type: String!, city: String!, state: String!, country: String!): [Property!]!
-    getPropertyCount(owner_id: String!): PropertyCount!
+    getPropertyById(propertyId: ID!): Property
     getMyProperties(owner_id: String!):[Property!]!
+    getPropertyCount(owner_id: String!): PropertyCount!
+    getPropByLT(type: String!, city: String!, state: String!, country: String!): [Property!]!
 }
 
 type Mutation {
-    insertProperty(property: PropertyInput!): Property
-    updateProperty(propertyId: ID!, property: PropertyInput!): Property
     deleteProperty(propertyId: ID!): Boolean
-    updateHasAmenities(propertyId: ID!, has_amenities: Boolean!): Property
+    insertProperty(property: PropertyInput!): Property
     updateIsActive(propertyId: ID!, is_active: Boolean!): Property
+    updateImageUrl(propertyId: ID!, image_urls: [ImageURLInput!]!): ImageProperty
+    updateProperty(propertyId: ID!, property: PropertyEditInput!): Property    
+    updateHasAmenities(propertyId: ID!, has_amenities: Boolean!): Property
 }

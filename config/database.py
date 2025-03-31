@@ -6,6 +6,5 @@ def get_db():
     uri = "mongodb+srv://nilaymathur:U3BQfgNWufbmr7Cd@cluster0.aoghk.mongodb.net/myDatabase?retryWrites=true&w=majority"
     client = MongoClient(uri)
     db = client["Properties"]
-    print(uri);
     return db
 

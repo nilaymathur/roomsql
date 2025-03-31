@@ -20,24 +20,6 @@ def resolve_insert_property(_, info, property):
         print(f"Error inserting property: {e}")
         return None
 
-# @property_mutation.field("updateProperty")
-# def resolve_update_property(_, info, propertyId, property):
-#     try:
-#         update_result = property_collection.update_one(
-#             {"_id": ObjectId(propertyId)},
-#             {"$set": property}
-#         )
-
-#         if update_result.modified_count == 1:
-#             updated_property = property_collection.find_one({"_id": ObjectId(propertyId)})
-#             updated_property["propertyId"] = str(updated_property["_id"])
-#             del updated_property["_id"]
-#             return updated_property
-#         return None
-#     except Exception as e:
-#         print(f"Error updating property: {e}")
-#         return None
-
 @property_mutation.field("updateProperty")
 def resolve_update_property(_, info, propertyId, property):
     try:
@@ -72,7 +54,29 @@ def resolve_update_property(_, info, propertyId, property):
         print(f"Error updating property: {e}")
         return None
 
+@property_mutation.field("updateImageUrl")
+def resolve_update_image_url(_, info, propertyId, image_urls):
+    try:
+        # Ensure image_urls is a valid list of dictionaries
+        if not isinstance(image_urls, list) or not all(isinstance(img, dict) and "url" in img for img in image_urls):
+            raise ValueError("Invalid image URLs format. Expected a list of objects with 'url'.")
 
+        update_result = property_collection.update_one(
+            {"_id": ObjectId(propertyId)},
+            {"$set": {"image_urls": image_urls}}
+        )
+
+        if update_result.modified_count == 1:
+            updated_property = property_collection.find_one({"_id": ObjectId(propertyId)})
+            updated_property["propertyId"] = str(updated_property["_id"])
+            del updated_property["_id"]
+            return updated_property
+
+        return None
+    except Exception as e:
+        print(f"Error updating image URLs: {e}")
+        return None
+    
 @property_mutation.field("updateHasAmenities")
 def resolve_update_property_amenities(_, info, propertyId, has_amenities):
     try:

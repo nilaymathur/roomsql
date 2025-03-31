@@ -23,7 +23,6 @@ def resolve_get_property_by_id(_, info, propertyId):
 
 @property_query.field("getPropByLT")
 def resolve_get_prop_by_lt(_, info, type, city, state, country):
-    print(type, city, state, country)
     try:
         # Case-insensitive search using $regex with $options: "i"
         filtered_properties = list(property_collection.find({
@@ -33,8 +32,6 @@ def resolve_get_prop_by_lt(_, info, type, city, state, country):
             "address.country": { "$regex": f"^{country}$", "$options": "i" },
             "is_active": True
         }))
-
-        print(filtered_properties)
 
         # Convert MongoDB ObjectId to string and rename `_id` to `propertyId`
         for property in filtered_properties:
