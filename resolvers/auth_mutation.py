@@ -10,7 +10,7 @@ db = get_db()
 users_collection = db["Users"]
 
 @auth_mutation.field("createUser")
-def resolve_create_user(_, info, aadhar_no, active, email, mobile, name, password, profile_uri, role):
+def resolve_create_user(_, info, aadhar_no, active, email, mobile, name, password, profile_uri):
     new_user = {
         "_id": mobile,
         "aadhar_no": aadhar_no,
@@ -19,7 +19,6 @@ def resolve_create_user(_, info, aadhar_no, active, email, mobile, name, passwor
         "name": name,
         "password": password,
         "profile_uri": profile_uri,
-        "role": role
     }
     result = users_collection.insert_one(new_user)
     return result.acknowledged
