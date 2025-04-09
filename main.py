@@ -55,7 +55,7 @@ app = FastAPI()
 # WebSocket client function
 async def chat_client():
     # uri = "ws://127.0.0.1:8000/ws"
-    uri = "ws://https://pythonapis-fxa8fmfaadave3ad.canadacentral-01.azurewebsites.net/ws"
+    uri = "ws://https://pythonapis-fxa8fmfaadave3ad.canadacentral-01.azurewebsites.net/ws";
     await asyncio.sleep(3)  # Wait for server to start
     async with websockets.connect(uri) as websocket:
         while True:
