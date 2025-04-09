@@ -6,6 +6,7 @@ type User {
     name        : String!
     password    : String!
     profile_uri : String
+    role        : String!
 }
 
 type Query {
@@ -21,7 +22,8 @@ type Mutation {
         mobile      : String!,
         name        : String!,
         password    : String!,
-        profile_uri : String!
+        profile_uri : String!,
+        role        : String!
     ): Boolean
 
     updateUser(

@@ -22,6 +22,7 @@ def resolve_get_user(_, info, aadhar_no):
                 "mobile":user.get("_id", ""),
                 "name":user.get("name", ""),
                 "profile_uri": user.get("profile_uri", ""),
+                "role": user.get("role", ""),
             })
         return result
     return []
@@ -37,6 +38,7 @@ def resolve_login(_, info, mobile, password):
             "mobile": user.get("mobile", ""),
             "name": user.get("name", ""),
             "profile_uri": user.get("profile_uri", ""),
+            "role": user.get("role", ""),
         }
     
     return None  # Returns `null` in GraphQL response if login fails
