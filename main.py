@@ -1,7 +1,8 @@
 import asyncio
 
-from typing import Dict, List
+from typing import List
 from datetime import datetime
+
 from ariadne.asgi import GraphQL
 from config.database import get_db
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
@@ -56,8 +57,10 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         while True:
             message = await websocket.receive_text()
+            print(f'message in while loop {message}')
             for connection in active_connections:
                 await connection.send_text(message)
+                print(f'message in for loop {message}')
     except:
         active_connections.remove(websocket)
 
