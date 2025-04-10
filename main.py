@@ -52,17 +52,39 @@ active_connections: list[WebSocket] = []
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     active_connections.append(websocket)
-    print("active_connections:", active_connections)
+    print("🟢 Connection opened. Total active:", len(active_connections))
 
     try:
+
+        asyncio.create_task(ping_clients())
+
         while True:
             message = await websocket.receive_text()
             print(f'message in while loop {message}')
             for connection in active_connections:
-                await connection.send_text(message)
-                print(f'message in for loop {message}')
-    except:
+                try:
+                    await connection.send_text(message)
+                    print(f"📤 Sent to client: {message}")
+                except Exception as e:
+                    print(f"⚠️ Failed to send to client: {e}")
+    except WebSocketDisconnect:
         active_connections.remove(websocket)
+        print("🔴 Connection closed. Total active:", len(active_connections))
+    except Exception as e:
+        print(f"❌ Exception occurred: {e}")
+        if websocket in active_connections:
+            active_connections.remove(websocket)
+
+# Ping all clients every 20 seconds to keep connection alive
+async def ping_clients():
+    while True:
+        await asyncio.sleep(20)
+        for connection in active_connections:
+            try:
+                await connection.send_text("__ping__")
+                print("📡 Ping sent to keep connection alive")
+            except Exception as e:
+                print(f"⚠️ Ping failed: {e}")
 
 # MongoDB connection check (optional)
 @app.on_event("startup")
