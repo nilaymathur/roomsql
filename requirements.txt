@@ -3,6 +3,7 @@ ariadne
 pymongo
 uvicorn
 gunicorn
+requests
 websockets
 python-multipart
 azure-storage-blob
