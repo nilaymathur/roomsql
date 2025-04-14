@@ -1,7 +1,7 @@
 fastapi
 ariadne
 pymongo
-uvicorn
+uvicorn[standard]
 gunicorn
 requests
 websockets
