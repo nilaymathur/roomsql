@@ -1,0 +1,49 @@
+type Receiver {
+    Name: String!
+    Contact: String!
+}
+
+type Message {
+    _id: ID
+    senderName: String!
+    senderContact: String!
+    receivers: [Receiver!]!
+    status: String!
+    message: String!
+    time: String!
+}
+
+input ReceiverInput {
+    Name: String!
+    Contact: String!
+}
+
+type Query {
+    getMessagesBySenderReceiverAndDateRange(
+        senderContact: String!
+        receiverContact: String!
+        startDate: String!
+        endDate: String!
+    ): [Message]
+
+    getMessagesBySenderReceiver(sender: String!, receiver: String!): [Message]
+
+    getMyMessages(contact: String!): [Message]
+}
+
+type Mutation {
+    createMessage(
+        senderName: String!
+        senderContact: String!
+        receivers: [ReceiverInput!]!
+        status: String!
+        message: String!
+        time: String!
+    ): Boolean
+
+    updateMessageContent(id: ID!, message: String!): Boolean
+    updateMessageStatus(id: ID!, status: String!): Boolean
+    deleteMessage(id: ID!): Boolean
+
+    markAllMessagesAsRead(receiverContact: String!): Boolean
+}

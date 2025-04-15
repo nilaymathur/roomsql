@@ -20,6 +20,8 @@ from resolvers.auth_mutation import auth_mutation
 from resolvers.amenity_queries import amenity_query
 from resolvers.amenity_mutations import amenity_mutation
 
+from resolvers.message_queries import message_query
+from resolvers.message_mutation import message_mutation
 
 # create a function to add two numbers
 
@@ -28,14 +30,15 @@ amenity_defs = load_schema_from_path("schemas/amenity_schema.graphql")
 auth_defs = load_schema_from_path("schemas/auth_schema.graphql")
 property_defs = load_schema_from_path("schemas/property_schema.graphql")
 worldcity_defs = load_schema_from_path("schemas/worldcities_schema.graphql")
+message_defs = load_schema_from_path("schemas/message_schema.graphql")
 
 
 # Create the executable schema
-
 auth_schema = make_executable_schema(auth_defs, auth_query, auth_mutation)
 amenity_schema = make_executable_schema(amenity_defs, amenity_query, amenity_mutation)
 property_schema = make_executable_schema(property_defs, property_query, property_mutation)
 worldcity_schema = make_executable_schema(worldcity_defs, worldcity_query, worldcity_mutation)
+message_schema = make_executable_schema(message_defs, message_query, message_mutation)
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -44,6 +47,7 @@ app.add_route("/amenity_graphql", GraphQL(amenity_schema, debug=False))
 app.add_route("/auth_graphql", GraphQL(auth_schema, debug=False))
 app.add_route("/property_graphql", GraphQL(property_schema, debug=False))
 app.add_route("/worldcity_graphql", GraphQL(worldcity_schema, debug=False))
+app.add_route("/message_graphql", GraphQL(message_schema, debug=False))
 
 active_connections: list[WebSocket] = []
 
@@ -60,18 +64,14 @@ async def websocket_endpoint(websocket: WebSocket):
 
         while True:
             message = await websocket.receive_text()
-            print(f'message in while loop {message}')
             for connection in active_connections:
                 try:
                     await connection.send_text(message)
-                    print(f"📤 Sent to client: {message}")
                 except Exception as e:
                     print(f"⚠️ Failed to send to client: {e}")
     except WebSocketDisconnect:
         active_connections.remove(websocket)
-        print("🔴 Connection closed. Total active:", len(active_connections))
     except Exception as e:
-        print(f"❌ Exception occurred: {e}")
         if websocket in active_connections:
             active_connections.remove(websocket)
 
