@@ -39,7 +39,7 @@ type Mutation {
         status: String!
         message: String!
         time: String!
-    ): Boolean
+    ): Message
 
     updateMessageContent(id: ID!, message: String!): Boolean
     updateMessageStatus(id: ID!, status: String!): Boolean

@@ -17,7 +17,8 @@ def resolve_create_message(_, info, senderName, senderContact, receivers, status
         "time": time
     }
     result = messages_collection.insert_one(new_message)
-    return result.acknowledged
+    new_message["_id"] = str(result.inserted_id)
+    return new_message
 
 @message_mutation.field("updateMessageContent")
 def resolve_update_message_content(_, info, id, message):
