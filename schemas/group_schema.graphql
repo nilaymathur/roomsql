@@ -1,0 +1,34 @@
+type Member {
+    Name: String!
+    Contact: String!
+}
+
+type Group {
+    _id: ID
+    isGroup: Boolean!
+    groupName: String!
+    members: [Member!]!
+    displayPicture: String
+    createdAt: String
+    updatedAt: String
+}
+
+input MemberInput {
+    Name: String!
+    Contact: String!
+}
+
+type Query {
+    getAllGroups: [Group]
+    getGroupById(id: ID!): Group
+}
+
+type Mutation {
+    createGroup(
+        groupName: String!
+        members: [MemberInput!]!
+        displayPicture: String
+    ): Group
+    deleteGroup(id: ID!): Boolean
+    updateGroupName(id: ID!, groupName: String!): Group
+}

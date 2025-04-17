@@ -7,14 +7,14 @@ db = get_db()
 messages_collection = db["Messages"]
 
 @message_mutation.field("createMessage")
-def resolve_create_message(_, info, senderName, senderContact, receivers, status, message, time):
+def resolve_create_message(_, info, senderName, senderContact, receivers, status, message, timestamp):
     new_message = {
         "senderName": senderName,
         "senderContact": senderContact,
         "receivers": receivers,
         "status": status,
         "message": message,
-        "time": time
+        "timestamp": timestamp
     }
     result = messages_collection.insert_one(new_message)
     new_message["_id"] = str(result.inserted_id)

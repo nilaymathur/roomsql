@@ -4,14 +4,16 @@ type Receiver {
 }
 
 type Message {
-    _id: ID
-    senderName: String!
-    senderContact: String!
-    receivers: [Receiver!]!
-    status: String!
-    message: String!
-    time: String!
+  _id: ID
+  senderName: String!
+  senderContact: String!
+  receivers: [Receiver!]!
+  groupId: String
+  status: String!
+  message: String!
+  timestamp: String!
 }
+
 
 input ReceiverInput {
     Name: String!
@@ -19,16 +21,10 @@ input ReceiverInput {
 }
 
 type Query {
-    getMessagesBySenderReceiverAndDateRange(
-        senderContact: String!
-        receiverContact: String!
-        startDate: String!
-        endDate: String!
-    ): [Message]
-
-    getMessagesBySenderReceiver(sender: String!, receiver: String!): [Message]
-
     getMyMessages(contact: String!): [Message]
+    getMessagesSinceLastMonth(contact: String!): [Message]
+    getGroupMessages(contact: String!): [Message]
+    getIndividualMessages(sender: String!, receiver: String!): [Message]
 }
 
 type Mutation {
