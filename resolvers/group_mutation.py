@@ -10,7 +10,6 @@ groups_collection = db["Groups"]
 @group_mutation.field("createGroup")
 def resolve_create_group(_, info, groupName, members, displayPicture=None):
     new_group = {
-        "isGroup": True,
         "groupName": groupName,
         "members": members,
         "displayPicture": displayPicture,

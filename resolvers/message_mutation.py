@@ -7,15 +7,17 @@ db = get_db()
 messages_collection = db["Messages"]
 
 @message_mutation.field("createMessage")
-def resolve_create_message(_, info, senderName, senderContact, receivers, status, message, timestamp):
+def resolve_create_message(_, info, senderName, senderContact, receivers, status, message, timeStamp, groupId=None):
     new_message = {
         "senderName": senderName,
         "senderContact": senderContact,
         "receivers": receivers,
         "status": status,
         "message": message,
-        "timestamp": timestamp
+        "timeStamp": timeStamp
     }
+    if(groupId):
+        new_message['groupId'] = groupId
     result = messages_collection.insert_one(new_message)
     new_message["_id"] = str(result.inserted_id)
     return new_message

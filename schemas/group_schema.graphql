@@ -5,7 +5,6 @@ type Member {
 
 type Group {
     _id: ID
-    isGroup: Boolean!
     groupName: String!
     members: [Member!]!
     displayPicture: String
@@ -21,6 +20,7 @@ input MemberInput {
 type Query {
     getAllGroups: [Group]
     getGroupById(id: ID!): Group
+    getMyGroups(contact: String!): [Group]
 }
 
 type Mutation {

@@ -19,3 +19,12 @@ def resolve_get_group_by_id(_, info, id):
     if group:
         group["_id"] = str(group["_id"])
     return group
+
+@group_query.field("getMyGroups")
+def resolve_get_my_groups(_, info, contact):
+    groups = list(groups_collection.find({
+        "members.Contact": contact
+    }))
+    for group in groups:
+        group["_id"] = str(group["_id"])
+    return groups

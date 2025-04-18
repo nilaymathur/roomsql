@@ -8,12 +8,11 @@ type Message {
   senderName: String!
   senderContact: String!
   receivers: [Receiver!]!
-  groupId: String
   status: String!
   message: String!
-  timestamp: String!
+  timeStamp: String!
+  groupId: String
 }
-
 
 input ReceiverInput {
     Name: String!
@@ -34,7 +33,8 @@ type Mutation {
         receivers: [ReceiverInput!]!
         status: String!
         message: String!
-        time: String!
+        timeStamp: String!
+        groupId: String
     ): Message
 
     updateMessageContent(id: ID!, message: String!): Boolean

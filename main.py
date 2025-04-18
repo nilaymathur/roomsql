@@ -52,7 +52,7 @@ app.add_route("/auth_graphql", GraphQL(auth_schema, debug=False))
 app.add_route("/property_graphql", GraphQL(property_schema, debug=False))
 app.add_route("/worldcity_graphql", GraphQL(worldcity_schema, debug=False))
 app.add_route("/message_graphql", GraphQL(message_schema, debug=False))
-app.add_route("/group_graphql", GraphQL(message_schema, debug=False))
+app.add_route("/group_graphql", GraphQL(group_scheam, debug=False))
 
 active_connections: list[WebSocket] = []
 

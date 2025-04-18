@@ -9,8 +9,8 @@ messages_collection = db["Messages"]
 @message_query.field("getGroupMessages")
 def resolve_get_group_messages(_, info, contact):
     messages = list(messages_collection.find({
-        "groupId": {"$ne": None},  # groupId should not be null
-        "receivers.Contact": contact
+        "receivers.Contact": contact,
+        "groupId": {"$ne": None}  # groupId should not be null
     }))
     for msg in messages:
         msg["_id"] = str(msg["_id"])
@@ -45,9 +45,9 @@ def resolve_get_messages_since_last_month(_, info, contact):
     from datetime import datetime, timedelta
     one_month_ago = datetime.now() - timedelta(days=30)
 
-    # Assuming each message has a 'timestamp' field
+    # Assuming each message has a 'timeStamp' field
     recent_messages = [
-        msg for msg in messages if datetime.fromisoformat(msg["timestamp"]) >= one_month_ago
+        msg for msg in messages if datetime.fromisoformat(msg["timeStamp"]) >= one_month_ago
     ]
     
     return recent_messages
