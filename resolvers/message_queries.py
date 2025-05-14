@@ -52,3 +52,13 @@ def resolve_get_messages_since_last_month(_, info, contact):
     
     return recent_messages
 
+def fetch_messages_for_contact(contact):
+    messages = list(messages_collection.find({
+        "$or": [
+            {"senderContact": contact},
+            {"receivers.Contact": contact}
+        ]
+    }))
+    for msg in messages:
+        msg["_id"] = str(msg["_id"])
+    return messages
